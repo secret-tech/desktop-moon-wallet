@@ -30,7 +30,8 @@ export default merge.smart(baseConfig, {
     rules: [
       // Extract all .global.css to style.css as is
       {
-        test: /\.global\.css$/,
+        test: /\.css$/,
+        include: /(app\/assets|node_modules)/,
         use: ExtractTextPlugin.extract({
           publicPath: './',
           use: {
@@ -44,7 +45,9 @@ export default merge.smart(baseConfig, {
       },
       // Pipe other styles through css modules and append to style.css
       {
-        test: /^((?!\.global).)*\.css$/,
+        test: /\.css?$/,
+        include: /app/,
+        exclude: /app\/assets/,
         use: ExtractTextPlugin.extract({
           use: {
             loader: 'css-loader',
@@ -161,7 +164,8 @@ export default merge.smart(baseConfig, {
      * development checks
      */
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production'
+      NODE_ENV: 'production',
+      API_HOST: 'https://api.moonwallet.tech'
     }),
 
     new UglifyJSPlugin({

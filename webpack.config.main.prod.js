@@ -45,7 +45,8 @@ export default merge.smart(baseConfig, {
      */
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
-      DEBUG_PROD: 'false'
+      DEBUG_PROD: 'false',
+      API_HOST: 'https://api.moonwallet.tech'
     })
   ],
 

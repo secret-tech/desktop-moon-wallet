@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
-import createHistory from 'history/createBrowserHistory';
+import { createHashHistory } from 'history';
 import createSagaMiddleware from 'redux-saga';
 import { routerMiddleware } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
@@ -8,7 +8,7 @@ import { stateTransformer } from 'redux-seamless-immutable';
 import rootReducer from './rootReducer';
 import rootSaga from '../sagas/rootSaga';
 
-export const history = createHistory();
+export const history = createHashHistory();
 const sagaMiddleware = createSagaMiddleware();
 const loggerMiddleware = createLogger({
   stateTransformer,

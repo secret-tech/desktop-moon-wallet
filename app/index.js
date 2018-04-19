@@ -1,27 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
 import { AppContainer } from 'react-hot-loader';
 
-import './app.global.css';
+import '@blueprintjs/core/lib/css/blueprint.css';
+import './assets/css/main.css';
 
-import { configureStore, history } from './store/configureStore';
-import Root from './containers/root/Root';
+import configureStore, { history } from './redux/configureStore';
+import Main from './containers/app/Main';
+
+console.log(process.env);
 
 const store = configureStore();
 
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Component store={store} history={history} />
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Component />
+        </ConnectedRouter>
+      </Provider>
     </AppContainer>,
     document.getElementById('root')
   );
 };
 
-render(Root);
+render(Main);
 
 if (module.hot) {
-  module.hot.accept('./containers/root/Root', () => {
-    render(require('./containers/root/Root').default); // eslint-disable-line global-require
+  module.hot.accept('./containers/app/Main', () => {
+    render(require('./containers/app/Main').default); // eslint-disable-line global-require
   });
 }

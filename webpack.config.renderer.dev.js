@@ -70,7 +70,8 @@ export default merge.smart(baseConfig, {
         }
       },
       {
-        test: /\.global\.css$/,
+        test: /\.css$/,
+        include: /(app\/assets|node_modules)/,
         use: [
           {
             loader: 'style-loader'
@@ -84,7 +85,9 @@ export default merge.smart(baseConfig, {
         ]
       },
       {
-        test: /^((?!\.global).)*\.css$/,
+        test: /\.css?$/,
+        include: /app/,
+        exclude: /app\/assets/,
         use: [
           {
             loader: 'style-loader'
@@ -222,7 +225,8 @@ export default merge.smart(baseConfig, {
      * 'staging', for example, by changing the ENV variables in the npm scripts
      */
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'
+      NODE_ENV: 'development',
+      API_HOST: 'https://api.moonwallet.tech'
     }),
 
     new webpack.LoaderOptionsPlugin({
